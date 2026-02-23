@@ -15,7 +15,7 @@ const variants = ref([
     id: 2234,
     color: "green",
     image: socksGreenImage,
-    quantity: 5,
+    quantity: 6,
     price: 14,
   },
   { id: 2235, color: "blue", image: socksBlueImage, quantity: 5, price: 12.5 },
