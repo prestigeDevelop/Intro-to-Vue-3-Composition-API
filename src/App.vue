@@ -2,23 +2,19 @@
 import { computed, ref } from "vue";
 
 import productDisplay from "./components/ProductDisplay.vue";
-
-const total = ref(0);
-
-const cart = ref([]);
+import Cart from "./components/Cart.vue";
 const premium = true;
 
+const variant = ref({});
 const addToCart = (selectedProduct) => {
-  cart.value.push(selectedProduct.id);
-
-  total.value += selectedProduct.price;
+  //This creates a new object reference on every click, guaranteeing the watcher always fires — even for the same product clicked multiple times.
+  variant.value = { ...selectedProduct };
 };
 </script>
 
 <template>
   <div class="nav-bar"></div>
-  <div class="cart">Cart({{ cart.length }})Total(${{ total }})</div>
-
+  <Cart :variant="variant"></Cart>
   <div class="product-display">
     <productDisplay
       :premium="premium"
