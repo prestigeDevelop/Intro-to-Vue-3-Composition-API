@@ -1,12 +1,12 @@
 <script setup>
 import { ref, provide } from "vue";
-
+import { v4 as uuidv4 } from "uuid";
 import Cart from "./components/Cart.vue";
 const premium = true;
 
 const cart = ref([]);
 const total = ref(0);
-const userName = ref("Arni100G");
+const userName = ref(uuidv4().slice(0, 15));
 
 const updateCart = (product) => {
   cart.value.push(product);

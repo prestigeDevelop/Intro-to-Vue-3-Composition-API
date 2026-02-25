@@ -110,6 +110,6 @@ const addReview = (review) => {
       </div>
     </div>
     <ReviewList v-if="reviews.length > 0" :reviews="reviews"></ReviewList>
-    <ReviewForm @review-submitted="addReview"></ReviewForm>
+    <ReviewForm @review-submitted="addReview" :user="user"></ReviewForm>
   </div>
 </template>

@@ -1,40 +1,48 @@
 <script setup>
-import { reactive } from 'vue'
+import { onMounted, reactive } from "vue";
 
-const emit = defineEmits(['review-submitted'])
+const emit = defineEmits(["review-submitted"]);
 
+const props = defineProps({
+  user: {
+    type: String,
+    required: true,
+  },
+});
 const review = reactive({
-  name: '',
-  content: '',
-  rating: null
-})
-
+  name: "",
+  content: "",
+  rating: null,
+});
 const onSubmit = () => {
-  if (review.name === '' || review.content === '' || review.rating === null) {
-    alert('Review is incomplete. Please fill out every field.')
-    return
+  if (review.name === "" || review.content === "" || review.rating === null) {
+    alert("Review is incomplete. Please fill out every field.");
+    return;
   }
 
   const productReview = {
     name: review.name,
     content: review.content,
-    rating: review.rating
-  }
-  emit('review-submitted', productReview)
+    rating: review.rating,
+  };
+  emit("review-submitted", productReview);
 
-  review.name = ''
-  review.content = ''
-  review.rating = null
-}
+  review.name = "";
+  review.content = "";
+  review.rating = null;
+};
+onMounted(() => {
+  review.name = props.user;
+});
 </script>
 
 <template>
   <form class="review-form" @submit.prevent="onSubmit">
     <h3>Leave a review</h3>
     <label for="name">Name:</label>
-    <input id="name" v-model="review.name">
+    <input id="name" v-model="review.name" :disabled="true" />
 
-    <label for="review">Review:</label>      
+    <label for="review">Review:</label>
     <textarea id="review" v-model="review.content"></textarea>
 
     <label for="rating">Rating:</label>
@@ -46,6 +54,6 @@ const onSubmit = () => {
       <option>1</option>
     </select>
 
-    <input class="button" type="submit" value="Submit">
+    <input class="button" type="submit" value="Submit" />
   </form>
 </template>
