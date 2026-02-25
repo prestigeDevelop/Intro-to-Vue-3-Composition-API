@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, inject } from "vue";
 import ReviewForm from "@/components/ReviewForm.vue";
 import ReviewList from "@/components/ReviewList.vue";
 import socksGreenImage from "@/assets/images/socks_green.jpeg";
@@ -11,7 +11,7 @@ const props = defineProps({
     required: true,
   },
 });
-
+const user = inject("user");
 const emit = defineEmits(["add-to-cart"]);
 
 const product = ref("Socks");
@@ -28,8 +28,16 @@ const variants = ref([
     image: socksGreenImage,
     quantity: 6,
     price: 14,
+    name: "Green Socks",
   },
-  { id: 2235, color: "blue", image: socksBlueImage, quantity: 5, price: 12.5 },
+  {
+    id: 2235,
+    color: "blue",
+    image: socksBlueImage,
+    quantity: 5,
+    price: 12.5,
+    name: "Blue Socks",
+  },
 ]);
 
 const reviews = ref([]);
@@ -71,6 +79,7 @@ const addReview = (review) => {
 
 <template>
   <div class="product-display">
+    <h2>Hello {{ user }}</h2>
     <div class="product-container">
       <div class="product-image">
         <img v-bind:src="image" />

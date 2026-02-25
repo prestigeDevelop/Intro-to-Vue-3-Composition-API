@@ -1,13 +1,25 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref, provide } from "vue";
 
-import productDisplay from "./components/ProductDisplay.vue";
 import Cart from "./components/Cart.vue";
 const premium = true;
 
+const cart = ref([]);
+const total = ref(0);
+const userName = ref("Arni100G");
+
+const updateCart = (product) => {
+  cart.value.push(product);
+  total.value += product.price;
+};
+
+provide("cart", cart);
+provide("total", total);
+provide("updateCart", updateCart);
+provide("user", userName);
+
 const variant = ref({});
 const addToCart = (selectedProduct) => {
-  //This creates a new object reference on every click, guaranteeing the watcher always fires — even for the same product clicked multiple times.
   variant.value = { ...selectedProduct };
 };
 </script>
@@ -15,10 +27,7 @@ const addToCart = (selectedProduct) => {
 <template>
   <div class="nav-bar"></div>
   <Cart :variant="variant"></Cart>
-  <div class="product-display">
-    <productDisplay
-      :premium="premium"
-      @add-to-cart="addToCart"
-    ></productDisplay>
-  </div>
+  <RouterView v-slot="{ Component }">
+    <component :is="Component" :premium="premium" @add-to-cart="addToCart" />
+  </RouterView>
 </template>

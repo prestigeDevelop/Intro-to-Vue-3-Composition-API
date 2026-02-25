@@ -1,5 +1,6 @@
 <script setup>
-import { watch, ref } from "vue";
+import { watch, inject } from "vue";
+
 const props = defineProps({
   variant: {
     type: Object,
@@ -8,21 +9,19 @@ const props = defineProps({
   },
 });
 
-const total = ref(0);
-const cart = ref([]);
-
-const updateCart = (selectedProduct) => {
-  cart.value.push(selectedProduct.id);
-  total.value += selectedProduct.price;
-};
+const cart = inject("cart");
+const total = inject("total");
+const updateCart = inject("updateCart");
 
 watch(
   () => props.variant,
   (newVariant) => {
-    updateCart(newVariant);
+    if (newVariant && newVariant.id) updateCart(newVariant);
   },
 );
 </script>
 <template>
-  <div class="cart">Cart({{ cart.length }})Total(${{ total }})</div>
+  <RouterLink to="/cart-summary">
+    <div class="cart">Cart({{ cart.length }})Total(${{ total }})</div>
+  </RouterLink>
 </template>
