@@ -25,8 +25,7 @@ const addToCart = (selectedProduct) => {
 </script>
 
 <template>
-  <div class="nav-bar"></div>
-  <Cart :variant="variant"></Cart>
+  <div class="nav-bar"><Cart :variant="variant"></Cart></div>
   <RouterView v-slot="{ Component }">
     <component :is="Component" :premium="premium" @add-to-cart="addToCart" />
   </RouterView>
