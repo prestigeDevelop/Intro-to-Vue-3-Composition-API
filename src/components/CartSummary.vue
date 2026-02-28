@@ -50,13 +50,13 @@ const increment = (item) => {
         <div class="col-3 cartTable">Total</div>
       </div>
       <div class="row" v-for="(item, index) in getReducedCart" :key="index">
-        <div class="col-3 d-flex align-items-center gap-2">
+        <div class="col-3 product-cell">
           <img v-bind:src="item.image" class="col-2 m-0 p-0" />{{ item.name }}
         </div>
         <div class="col-3">
-          <button class="buttonPlusMinus" @click="decrement(item)">-</button
-          >{{ item.quantity
-          }}<button class="buttonPlusMinus" @click="increment(item)">+</button>
+          <button class="buttonPlusMinus" @click="decrement(item)">-</button>
+          {{ item.quantity }}
+          <button class="buttonPlusMinus" @click="increment(item)">+</button>
         </div>
         <div class="col-3">${{ item.price }}</div>
         <div class="col-3">{{ item.total }}</div>
@@ -76,5 +76,10 @@ const increment = (item) => {
 }
 .product-image {
   width: 20%;
+}
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>
